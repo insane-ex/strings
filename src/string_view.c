@@ -21,3 +21,20 @@ StringView string_view_from_parts(const char *source, size_t length) {
 
     return view;
 }
+
+void string_view_chop_left(StringView *view) {
+    if (view->data == NULL || view->length == 0) {
+        return;
+    }
+
+    view->data += 1;
+    view->length -= 1;
+}
+
+void string_view_chop_right(StringView *view) {
+    if (view->data == NULL || view->length == 0) {
+        return;
+    }
+
+    view->length -= 1;
+}

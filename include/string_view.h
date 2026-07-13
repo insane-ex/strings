@@ -10,3 +10,6 @@ typedef struct {
 
 StringView string_view_from_literal(const char *source);
 StringView string_view_from_parts(const char *source, size_t length);
+
+void string_view_chop_left(StringView *view);
+void string_view_chop_right(StringView *view);
