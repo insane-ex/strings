@@ -1,0 +1,5 @@
+# Build folder
+/build
+
+# Entry point file
+src/main.c

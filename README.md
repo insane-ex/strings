@@ -1,0 +1,1 @@
+A library to work and handle strings.
