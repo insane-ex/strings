@@ -1,5 +1,7 @@
 #include "string_view.h"
 
+#include <ctype.h>
+
 StringView string_view_from_literal(const char *source) {
     StringView view = {0};
 
@@ -37,4 +39,33 @@ void string_view_chop_right(StringView *view) {
     }
 
     view->length -= 1;
+}
+
+void string_view_trim_left(StringView *view) {
+    if (view->data == NULL || view->length == 0) {
+        return;
+    }
+
+    while (view->length > 0 && isspace((unsigned char)view->data[0])) {
+        string_view_chop_left(view);
+    }
+}
+
+void string_view_trim_right(StringView *view) {
+    if (view->data == NULL || view->length == 0) {
+        return;
+    }
+
+    while (view->length > 0 && isspace((unsigned char)view->data[view->length - 1])) {
+        string_view_chop_right(view);
+    }
+}
+
+void string_view_trim(StringView *view) {
+    if (view->data == NULL || view->length == 0) {
+        return;
+    }
+
+    string_view_trim_left(view);
+    string_view_trim_right(view);
 }
