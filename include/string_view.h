@@ -3,6 +3,9 @@
 #include <stddef.h>
 #include <string.h>
 
+#define STRING_VIEW_FORMAT "%.*s"
+#define STRING_VIEW_ARGS(view) (int)((view).length), (view).data
+
 typedef struct {
     const char *data;
     size_t length;
