@@ -23,3 +23,7 @@ void string_view_trim(StringView *view);
 
 bool string_view_is_empty(const StringView *view);
 bool string_view_is_blank(const StringView *view);
+bool string_view_equals(const StringView *left, const StringView *right);
+bool string_view_equals_ignore_case(const StringView *left, const StringView *right);
+bool string_view_starts_with(const StringView *view, const StringView *prefix);
+bool string_view_ends_with(const StringView *view, const StringView *suffix);
