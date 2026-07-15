@@ -95,3 +95,73 @@ bool string_view_is_blank(const StringView *view) {
 
     return true;
 }
+
+bool string_view_equals(const StringView *left, const StringView *right) {
+    if (left == NULL || left->data == NULL) {
+        return false;
+    }
+
+    if (right == NULL || right->data == NULL) {
+        return false;
+    }
+
+    if (left->length < right->length) {
+        return false;
+    }
+
+    return memcmp(left->data, right->data, left->length) == 0;
+}
+
+bool string_view_equals_ignore_case(const StringView *left, const StringView *right) {
+    if (left == NULL || left->data == NULL) {
+        return false;
+    }
+
+    if (right == NULL || right->data == NULL) {
+        return false;
+    }
+
+    if (left->length < right->length) {
+        return false;
+    }
+
+    for (size_t i = 0; i < left->length; i++) {
+        if (tolower(left->data[i]) != tolower(right->data[i])) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+bool string_view_starts_with(const StringView *view, const StringView *prefix) {
+    if (view == NULL || view->data == NULL) {
+        return false;
+    }
+
+    if (prefix == NULL || prefix->data == NULL) {
+        return false;
+    }
+
+    if (prefix->length > view->length) {
+        return false;
+    }
+
+    return memcmp(view->data, prefix->data, prefix->length) == 0;
+}
+
+bool string_view_ends_with(const StringView *view, const StringView *suffix) {
+    if (view == NULL || view->data == NULL) {
+        return false;
+    }
+
+    if (suffix == NULL || suffix->data == NULL) {
+        return false;
+    }
+
+    if (suffix->length > view->length) {
+        return false;
+    }
+
+    return memcmp(view->data + (view->length - suffix->length), suffix->data, suffix->length) == 0;
+}
