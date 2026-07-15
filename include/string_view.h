@@ -1,5 +1,6 @@
 #pragma once
 
+#include <stdbool.h>
 #include <stddef.h>
 #include <string.h>
 
@@ -19,3 +20,6 @@ void string_view_chop_right(StringView *view);
 void string_view_trim_left(StringView *view);
 void string_view_trim_right(StringView *view);
 void string_view_trim(StringView *view);
+
+bool string_view_is_empty(const StringView *view);
+bool string_view_is_blank(const StringView *view);
