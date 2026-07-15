@@ -69,3 +69,29 @@ void string_view_trim(StringView *view) {
     string_view_trim_left(view);
     string_view_trim_right(view);
 }
+
+bool string_view_is_empty(const StringView *view) {
+    if (view == NULL || view->data == NULL) {
+        return false;
+    }
+
+    return view->length == 0;
+}
+
+bool string_view_is_blank(const StringView *view) {
+    if (view == NULL || view->data == NULL) {
+        return false;
+    }
+
+    if (view->length == 0) {
+        return true;
+    }
+
+    for (size_t i = 0; i < view->length; i++) {
+        if (!isspace((unsigned char)view->data[i])) {
+            return false;
+        }
+    }
+
+    return true;
+}
