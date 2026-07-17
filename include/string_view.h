@@ -46,56 +46,10 @@ static inline StringView string_view_from_parts(const char *source, size_t lengt
     return view;
 }
 
-STRING_VIEW_UNUSED static void string_view_chop_left(StringView *view) {
-    if (view->data == NULL || view->length == 0) {
-        return;
-    }
-
-    view->data += 1;
-    view->length -= 1;
-}
-
-STRING_VIEW_UNUSED static void string_view_chop_right(StringView *view) {
-    if (view->data == NULL || view->length == 0) {
-        return;
-    }
-
-    view->length -= 1;
-}
-
-STRING_VIEW_UNUSED static void string_view_trim_left(StringView *view) {
-    if (view->data == NULL || view->length == 0) {
-        return;
-    }
-
-    while (view->length > 0 && isspace((unsigned char)view->data[0])) {
-        string_view_chop_left(view);
-    }
-}
-
-STRING_VIEW_UNUSED static void string_view_trim_right(StringView *view) {
-    if (view->data == NULL || view->length == 0) {
-        return;
-    }
-
-    while (view->length > 0 && isspace((unsigned char)view->data[view->length - 1])) {
-        string_view_chop_right(view);
-    }
-}
-
-STRING_VIEW_UNUSED static void string_view_trim(StringView *view) {
-    if (view->data == NULL || view->length == 0) {
-        return;
-    }
-
-    string_view_trim_left(view);
-    string_view_trim_right(view);
-}
-
 static inline bool string_view_is_initialized(const StringView *view) { return view != NULL && view->data != NULL; }
 
 static inline bool string_view_is_empty(const StringView *view) {
-    if (view == NULL || view->data == NULL) {
+    if (!string_view_is_initialized(view)) {
         return false;
     }
 
@@ -103,7 +57,7 @@ static inline bool string_view_is_empty(const StringView *view) {
 }
 
 static inline bool string_view_is_blank(const StringView *view) {
-    if (view == NULL || view->data == NULL) {
+    if (!string_view_is_initialized(view)) {
         return false;
     }
 
@@ -120,12 +74,58 @@ static inline bool string_view_is_blank(const StringView *view) {
     return true;
 }
 
+STRING_VIEW_UNUSED static void string_view_chop_left(StringView *view) {
+    if (!string_view_is_initialized(view) || view->length == 0) {
+        return;
+    }
+
+    view->data += 1;
+    view->length -= 1;
+}
+
+STRING_VIEW_UNUSED static void string_view_chop_right(StringView *view) {
+    if (!string_view_is_initialized(view) || view->length == 0) {
+        return;
+    }
+
+    view->length -= 1;
+}
+
+STRING_VIEW_UNUSED static void string_view_trim_left(StringView *view) {
+    if (!string_view_is_initialized(view) || view->length == 0) {
+        return;
+    }
+
+    while (view->length > 0 && isspace((unsigned char)view->data[0])) {
+        string_view_chop_left(view);
+    }
+}
+
+STRING_VIEW_UNUSED static void string_view_trim_right(StringView *view) {
+    if (!string_view_is_initialized(view) || view->length == 0) {
+        return;
+    }
+
+    while (view->length > 0 && isspace((unsigned char)view->data[view->length - 1])) {
+        string_view_chop_right(view);
+    }
+}
+
+STRING_VIEW_UNUSED static void string_view_trim(StringView *view) {
+    if (!string_view_is_initialized(view) || view->length == 0) {
+        return;
+    }
+
+    string_view_trim_left(view);
+    string_view_trim_right(view);
+}
+
 STRING_VIEW_UNUSED static bool string_view_equals(const StringView *left, const StringView *right) {
-    if (left == NULL || left->data == NULL) {
+    if (!string_view_is_initialized(left)) {
         return false;
     }
 
-    if (right == NULL || right->data == NULL) {
+    if (!string_view_is_initialized(right)) {
         return false;
     }
 
@@ -137,11 +137,11 @@ STRING_VIEW_UNUSED static bool string_view_equals(const StringView *left, const 
 }
 
 STRING_VIEW_UNUSED static bool string_view_equals_ignore_case(const StringView *left, const StringView *right) {
-    if (left == NULL || left->data == NULL) {
+    if (!string_view_is_initialized(left)) {
         return false;
     }
 
-    if (right == NULL || right->data == NULL) {
+    if (!string_view_is_initialized(right)) {
         return false;
     }
 
@@ -159,11 +159,11 @@ STRING_VIEW_UNUSED static bool string_view_equals_ignore_case(const StringView *
 }
 
 STRING_VIEW_UNUSED static bool string_view_starts_with(const StringView *view, const StringView *prefix) {
-    if (view == NULL || view->data == NULL) {
+    if (!string_view_is_initialized(view)) {
         return false;
     }
 
-    if (prefix == NULL || prefix->data == NULL) {
+    if (!string_view_is_initialized(prefix)) {
         return false;
     }
 
@@ -175,11 +175,11 @@ STRING_VIEW_UNUSED static bool string_view_starts_with(const StringView *view, c
 }
 
 STRING_VIEW_UNUSED static bool string_view_ends_with(const StringView *view, const StringView *suffix) {
-    if (view == NULL || view->data == NULL) {
+    if (!string_view_is_initialized(view)) {
         return false;
     }
 
-    if (suffix == NULL || suffix->data == NULL) {
+    if (!string_view_is_initialized(suffix)) {
         return false;
     }
 
