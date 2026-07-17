@@ -127,7 +127,7 @@ STRING_VIEW_UNUSED static bool string_view_equals(const StringView *left, const 
         return false;
     }
 
-    if (left->length < right->length) {
+    if (left->length != right->length) {
         return false;
     }
 
@@ -143,7 +143,7 @@ STRING_VIEW_UNUSED static bool string_view_equals_ignore_case(const StringView *
         return false;
     }
 
-    if (left->length < right->length) {
+    if (left->length != right->length) {
         return false;
     }
 
