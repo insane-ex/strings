@@ -92,6 +92,8 @@ STRING_VIEW_UNUSED static void string_view_trim(StringView *view) {
     string_view_trim_right(view);
 }
 
+static inline bool string_view_is_initialized(const StringView *view) { return view != NULL && view->data != NULL; }
+
 static inline bool string_view_is_empty(const StringView *view) {
     if (view == NULL || view->data == NULL) {
         return false;
