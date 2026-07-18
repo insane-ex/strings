@@ -150,7 +150,7 @@ STRING_VIEW_UNUSED static bool string_view_equals_ignore_case(const StringView *
     }
 
     for (size_t i = 0; i < left->length; i++) {
-        if (tolower(left->data[i]) != tolower(right->data[i])) {
+        if (tolower((unsigned char)left->data[i]) != tolower((unsigned char)right->data[i])) {
             return false;
         }
     }
