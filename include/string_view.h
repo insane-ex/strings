@@ -74,7 +74,7 @@ static inline bool string_view_is_blank(const StringView *view) {
     return true;
 }
 
-STRING_VIEW_UNUSED static void string_view_chop_left(StringView *view) {
+static inline void string_view_chop_left(StringView *view) {
     if (!string_view_is_initialized(view) || view->length == 0) {
         return;
     }
@@ -83,7 +83,7 @@ STRING_VIEW_UNUSED static void string_view_chop_left(StringView *view) {
     view->length -= 1;
 }
 
-STRING_VIEW_UNUSED static void string_view_chop_right(StringView *view) {
+static inline void string_view_chop_right(StringView *view) {
     if (!string_view_is_initialized(view) || view->length == 0) {
         return;
     }
