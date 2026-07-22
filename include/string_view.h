@@ -140,6 +140,28 @@ STRING_VIEW_UNUSED static void string_view_trim(StringView *view) {
     string_view_trim_right(view);
 }
 
+STRING_VIEW_UNUSED static StringView string_view_trim_by_delimiter(StringView *view, char delimiter) {
+    if (!string_view_is_initialized(view) || view->length == 0) {
+        return string_view_from_parts(NULL, 0);
+    }
+
+    size_t i = 0;
+
+    while (i < view->length && view->data[i] != delimiter) {
+        i++;
+    }
+
+    StringView result = string_view_from_parts(view->data, i);
+
+    if (i < view->length) {
+        string_view_chop_left_by_amount(view, i + 1);
+    } else {
+        string_view_chop_left_by_amount(view, view->length);
+    }
+
+    return result;
+}
+
 STRING_VIEW_UNUSED static bool string_view_equals(const StringView *left, const StringView *right) {
     if (!string_view_is_initialized(left)) {
         return false;
