@@ -83,12 +83,32 @@ static inline void string_view_chop_left(StringView *view) {
     view->length -= 1;
 }
 
+static inline void string_view_chop_left_by_amount(StringView *view, size_t amount) {
+    if (!string_view_is_initialized(view) || view->length == 0) {
+        return;
+    }
+
+    for (size_t i = 0; i < amount; i++) {
+        string_view_chop_left(view);
+    }
+}
+
 static inline void string_view_chop_right(StringView *view) {
     if (!string_view_is_initialized(view) || view->length == 0) {
         return;
     }
 
     view->length -= 1;
+}
+
+static inline void string_view_chop_right_by_amount(StringView *view, size_t amount) {
+    if (!string_view_is_initialized(view) || view->length == 0) {
+        return;
+    }
+
+    for (size_t i = 0; i < amount; i++) {
+        string_view_chop_right(view);
+    }
 }
 
 STRING_VIEW_UNUSED static void string_view_trim_left(StringView *view) {
